@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Dashboard</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial;
+    background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+    color: white;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 220px;
+    height: 100vh;
+    background: rgba(0,0,0,0.4);
+    position: fixed;
+    padding: 20px;
+}
+
+.sidebar h2 {
+    color: #4facfe;
+}
+
+.main {
+    margin-left: 240px;
+    padding: 30px;
+}
+
+/* Cards */
+.card {
+    background: rgba(255,255,255,0.05);
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    backdrop-filter: blur(10px);
+}
+
+/* Inputs */
+input, select {
+    padding: 10px;
+    margin: 5px;
+    border-radius: 8px;
+    border: none;
+}
+
+/* Buttons */
+button {
+    padding: 10px 15px;
+    background: #4facfe;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #00c6ff;
+}
+
+/* Task cards */
+.task-card {
+    width: 250px;
+    padding: 20px;
+    border-radius: 15px;
+    background: rgba(255,255,255,0.08);
+    margin: 10px;
+    text-align: center;
+}
+</style>
+
+</head>
+<body>
+
+<!-- Sidebar -->
+<div class="sidebar">
+    <h2>TeamManager</h2>
+    <p>{{session['user']}}</p>
+    <p>{{session['role']}}</p>
+
+    <br>
+    <a href="/logout" style="color:red;">Logout</a>
+</div>
+
+<!-- Main -->
+<div class="main">
+
+<h2>Dashboard</h2>
+
+<!-- Create Project -->
+<div class="card">
+    <h3>Create Project</h3>
+    <form method="POST" action="/create_project">
+        <input name="name" placeholder="Project name" required>
+        <button>Create</button>
+    </form>
+</div>
+
+<!-- Add Task -->
+<div class="card">
+    <h3>Add Task</h3>
+    <form method="POST">
+
+        <input name="title" placeholder="Task name" required>
+
+        <input type="date" name="deadline" required>
+
+        <select name="project" required>
+            {% for p in projects %}
+            <option value="{{p[0]}}">{{p[1]}}</option>
+            {% endfor %}
+        </select>
+
+        <select name="assigned_to" required>
+            {% for u in users %}
+            <option value="{{u[0]}}">{{u[0]}}</option>
+            {% endfor %}
+        </select>
+
+        <button>Add</button>
+    </form>
+</div>
+
+<!-- Tasks -->
+<div class="card">
+    <h3>My Tasks</h3>
+
+    <div style="display:flex; flex-wrap:wrap;">
+
+    {% for t in tasks %}
+    <div class="task-card">
+
+        <h4>{{t[1]}}</h4>
+        <p>📅 {{t[3]}}</p>
+        <p>👤 {{t[5]}}</p>
+
+        <!-- TIMER -->
+        <p id="timer-{{t[0]}}">00:00:00</p>
+
+        {% if t[2]=='Completed' %}
+            <p style="color:lightgreen;">COMPLETED</p>
+        {% else %}
+            <p>PENDING</p>
+
+            <button onclick="startTimer({{t[0]}})">Start</button>
+
+            <a href="/complete/{{t[0]}}">
+                <button onclick="stopTimer({{t[0]}})" style="background:green;">Complete</button>
+            </a>
+        {% endif %}
+
+        <br><br>
+
+        <a href="/delete/{{t[0]}}">
+            <button style="background:red;">Delete</button>
+        </a>
+
+    </div>
+    {% endfor %}
+
+    </div>
+
+</div>
+
+</div>
+
+<!-- TIMER SCRIPT -->
+<script>
+let timers = {};
+
+function startTimer(id) {
+    let seconds = 0;
+
+    timers[id] = setInterval(() => {
+        seconds++;
+
+        let hrs = String(Math.floor(seconds / 3600)).padStart(2, '0');
+        let mins = String(Math.floor((seconds % 3600)/60)).padStart(2, '0');
+        let secs = String(seconds % 60).padStart(2, '0');
+
+        document.getElementById("timer-" + id).innerText =
+            hrs + ":" + mins + ":" + secs;
+
+    }, 1000);
+}
+
+function stopTimer(id) {
+    clearInterval(timers[id]);
+}
+</script>
+
+</body>
+</html>

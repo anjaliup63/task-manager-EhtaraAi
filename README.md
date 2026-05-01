@@ -4,31 +4,31 @@ A simple and efficient full-stack web application to manage projects and tasks w
 
 ---
 
-## 📌 Features
+##  Features
 
-* 🔐 **Authentication**
+*  **Authentication**
 
   * Signup & Login system
   * Role-based users (Admin / Member)
 
-* 📁 **Project Management**
+*  **Project Management**
 
   * Admin can create projects
 
-* ✅ **Task Management**
+*  **Task Management**
 
   * Create tasks
   * Assign tasks to users
   * Mark tasks as completed
   * Delete tasks
 
-* 📊 **Dashboard**
+*  **Dashboard**
 
   * View all tasks
   * Task status (Pending / Completed)
   * Assigned user tracking
 
-* 🌐 **REST APIs**
+*  **REST APIs**
 
   * `/api/tasks`
   * `/api/projects`
@@ -36,7 +36,7 @@ A simple and efficient full-stack web application to manage projects and tasks w
 
 ---
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 * **Frontend:** HTML, CSS
 * **Backend:** Python (Flask)
@@ -45,7 +45,7 @@ A simple and efficient full-stack web application to manage projects and tasks w
 
 ---
 
-## 🚀 How to Run Locally
+##  How to Run Locally
 
 ```bash
 git clone https://github.com/your-username/task-manager.git
@@ -59,7 +59,7 @@ https://task-manager-ehtaraai-production.up.railway.app/
 
 ---
 
-## 🔐 Default Login
+##  Default Login
 
 ```
 Username: admin  
@@ -68,7 +68,7 @@ Password: 123
 
 ---
 
-## 📡 API Endpoints
+##  API Endpoints
 
 * Get all tasks → `/api/tasks`
 * Get all projects → `/api/projects`
@@ -76,7 +76,7 @@ Password: 123
 
 ---
 
-## 📦 Project Structure
+##  Project Structure
 
 ```
 task-manager/
@@ -90,14 +90,14 @@ task-manager/
 
 ---
 
-## ⚠️ Note
+##  Note
 
 * Currently using SQLite (local database)
 * For production, can be upgraded to PostgreSQL for persistent storage
 
 ---
 
-## 🎯 Highlights
+##  Highlights
 
 * Full-stack implementation
 * Role-based access control
@@ -106,6 +106,6 @@ task-manager/
 
 ---
 
-## 📌 Author
+##  Author
 
 **Anjali Upadhyay**
